@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import ru.netology.Main;
 import ru.netology.Radio;
 
@@ -26,136 +28,74 @@ public class RadioTest {
     }
 
     // Тест 3. Увеличить радиостанцию с 8 / на следующую.
-    @Test
-    public void increaseRadioStationFrom8() {
-        Radio service = new Radio();
-        service.setCurrentRadioStationNumber(8);
-        service.nextRadiostation(); // Вызываем тестируемый метод
-        int expected = 9;
-        int actual = service.getCurrentRadioStationNumber();
-        Assertions.assertEquals(expected, actual);
-    }
-
     // Тест 4. Увеличить радиостанцию с 9 на следующую.
-    @Test
-    public void increaseRadioStationFrom9() {
-        Radio service = new Radio();
-        service.setCurrentRadioStationNumber(9);
-        service.nextRadiostation(); // Вызываем тестируемый метод
-        int expected = 0;
-        int actual = service.getCurrentRadioStationNumber();
-        Assertions.assertEquals(expected, actual);
-    }
-
     // Тест 5. Увеличить радиостанцию с 0 на следующую.
-    @Test
-    public void increaseRadioStationFrom0() {
+    @ParameterizedTest
+    @CsvSource({
+            "8, 9",
+            "9, 0",
+            "0, 1"
+    })
+    public void increaseRadioStationFrom8(int stantion, int expected) {
         Radio service = new Radio();
-        service.setCurrentRadioStationNumber(0);
+        service.setCurrentRadioStationNumber(stantion);
         service.nextRadiostation(); // Вызываем тестируемый метод
-        int expected = 1;
         int actual = service.getCurrentRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
 
     // Тест 6. Уменьшить номер радиостанции с 1;
-    @Test
-    public void decreaseRadioStationFrom1() {
-        Radio service = new Radio();
-        service.setCurrentRadioStationNumber(1);
-        service.prevRadiostation(); // Вызываем тестируемый метод
-        int expected = 0;
-        int actual = service.getCurrentRadioStationNumber();
-        Assertions.assertEquals(expected, actual);
-    }
-
     // Тест 7. Уменьшить номер радиостанции с 0;
-    @Test
-    public void decreaseRadioStationFrom0() {
-        Radio service = new Radio();
-        service.setCurrentRadioStationNumber(0);
-        service.prevRadiostation(); // Вызываем тестируемый метод
-        int expected = 9;
-        int actual = service.getCurrentRadioStationNumber();
-        Assertions.assertEquals(expected, actual);
-    }
-
     // Тест 8. Уменьшить номер радиостанции с -1;
-    @Test
-    public void decreaseRadioStationFromMinus1() {
+    @ParameterizedTest
+    @CsvSource({
+            "1, 0",
+            "0, 9",
+            "-1, 9"
+    })
+    public void decreaseRadioStationFrom1(int setStation, int expected) {
         Radio service = new Radio();
-        service.setCurrentRadioStationNumber(-1);
+        service.setCurrentRadioStationNumber(setStation);
         service.prevRadiostation(); // Вызываем тестируемый метод
-        int expected = 9;
         int actual = service.getCurrentRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
 
-    // Тест 9. Увеличить звук со 99
-    @Test
-    public void nextVolume99() {
-        Radio servise = new Radio();
-        servise.setSoundVolume(99);
-        servise.nextVolume();
-        int expected = 100;
-        int actual = servise.getSoundVolume();
-        Assertions.assertEquals(expected, actual);
-    }
-
+    // Тест 9. Увеличить звук с 99
     // Тест 10. Увеличить звук со 100
-    @Test
-    public void nextVolume100() {
-        Radio servise = new Radio();
-        servise.setSoundVolume(100);
-        servise.nextVolume();
-        int expected = 100;
-        int actual = servise.getSoundVolume();
-        Assertions.assertEquals(expected, actual);
-    }
-
     // Тест 11. Увеличить звук со 101
-    @Test
-    public void nextVolume101() {
+    @ParameterizedTest
+    @CsvSource({
+            "99, 100",
+            "100, 100",
+            "101, 100"
+    })
+
+    public void nextVolume99(int setVolume, int expected) {
         Radio servise = new Radio();
-        servise.setSoundVolume(101);
+        servise.setSoundVolume(setVolume);
         servise.nextVolume();
-        int expected = 100;
         int actual = servise.getSoundVolume();
         Assertions.assertEquals(expected, actual);
     }
 
     // Тест 12. Уменьшить звук с 1
-    @Test
-    public void prevVolume1() {
-        Radio servise = new Radio();
-        servise.setSoundVolume(1);
-        servise.prevVolume();
-        int expected = 0;
-        int actual = servise.getSoundVolume();
-        Assertions.assertEquals(expected, actual);
-    }
-
     // Тест 13. Уменьшить звук с 0
-    @Test
-    public void prevVolume0() {
+    // Тест 14. Уменьшить звук с -1
+    @ParameterizedTest
+    @CsvSource({
+            "1, 0",
+            "0, 0",
+            "-1, 0"
+    })
+    public void prevVolume1(int setVolume, int expected) {
         Radio servise = new Radio();
-        servise.setSoundVolume(0);
+        servise.setSoundVolume(setVolume);
         servise.prevVolume();
-        int expected = 0;
         int actual = servise.getSoundVolume();
         Assertions.assertEquals(expected, actual);
     }
 
-    // Тест 14. Уменьшить звук с -1
-    @Test
-    public void prevVolumeMinus1() {
-        Radio servise = new Radio();
-        servise.setSoundVolume(-1);
-        servise.prevVolume();
-        int expected = 0;
-        int actual = servise.getSoundVolume();
-        Assertions.assertEquals(expected, actual);
-    }
 
     // Тест 15.  ---------------------MAIN покрытие .
     // Передаю Текст (параметр).
