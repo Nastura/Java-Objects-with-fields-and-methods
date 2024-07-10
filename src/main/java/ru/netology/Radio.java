@@ -30,7 +30,7 @@ public class Radio {
     }
 
     public void nextRadiostation() {
-        int target = ++currentRadioStationNumber;
+        int target = currentRadioStationNumber + 1;
         if (target >= 10) {
             target = 0;
         }
@@ -38,7 +38,7 @@ public class Radio {
     }
 
     public void prevRadiostation() {
-        int target = --currentRadioStationNumber;
+        int target = currentRadioStationNumber - 1;
         if (target < 0) {
             target = 9;
         }
@@ -46,13 +46,13 @@ public class Radio {
     }
 
     public void nextVolume() {
-        int target = ++soundVolume;
+        int target = soundVolume + 1;
         setSoundVolume(target);
     }
 
 
     public void prevVolume() {
-        int target = --soundVolume;
+        int target = soundVolume - 1;
         setSoundVolume(target);
     }
 
